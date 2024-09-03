@@ -4,7 +4,7 @@ import { Post } from '@/payload-types'
 import payloadConfig from '@/payload.config'
 import { cache } from 'react'
 
-export const revalidate = 60 // Revalidate every hour instead of every minute
+export const revalidate = 60 // Revalidate every minute
 
 const getPayloadInstance = cache(async () => {
   return await getPayload({
@@ -17,8 +17,8 @@ async function getPosts() {
     const payload = await getPayloadInstance()
     const posts = await payload.find({
       collection: 'posts',
-      depth: 1, // Limit the depth of nested relationships
-      limit: 10, // Limit the number of posts fetched
+      depth: 1,
+      limit: 10,
     })
     return posts.docs as Post[]
   } catch (error) {

@@ -57,7 +57,7 @@ const Header = () => {
       <header className="flex mx-auto items-center justify-between py-3 max-w-7xl ">
         <div>
           <Link href="/">
-            <Image src="/logo.svg" alt="logo" width={100} height={100} />
+            <Image src="/logo.svg" alt="logo" width={100} height={20} />
           </Link>
         </div>
         <nav>

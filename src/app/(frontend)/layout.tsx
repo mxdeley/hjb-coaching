@@ -8,6 +8,7 @@ type LayoutProps = {
 
 import './globals.css'
 import Header from '@/components/header'
+import { FathomAnalytics } from './fathom'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -18,6 +19,8 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <html>
       <body className={cn('min-h-screen  font-sans antialiased', fontSans.variable)}>
+        <FathomAnalytics />
+
         <Header />
         {children}
       </body>

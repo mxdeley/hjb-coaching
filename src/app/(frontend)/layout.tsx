@@ -8,7 +8,7 @@ type LayoutProps = {
 
 import './globals.css'
 import Header from '@/components/header'
-import { FathomAnalytics } from './fathom'
+import { FathomAnalytics } from '../fathom'
 
 const fontSans = FontSans({
   subsets: ['latin'],

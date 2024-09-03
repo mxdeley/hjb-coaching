@@ -4,7 +4,7 @@ import { Post } from '@/payload-types'
 import payloadConfig from '@/payload.config'
 import { cache } from 'react'
 
-export const revalidate = 3600 // Revalidate every hour instead of every minute
+export const revalidate = 60 // Revalidate every hour instead of every minute
 
 const getPayloadInstance = cache(async () => {
   return await getPayload({

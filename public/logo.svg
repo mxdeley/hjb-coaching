@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 213">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #f4f4f5;
+      }
+
+      .cls-3, .cls-2 {
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        font-family: ArialMT, Arial;
+        font-size: 31.87px;
+      }
+
+      .cls-4 {
+        letter-spacing: -.06em;
+      }
+    </style>
+  </defs>
+  <g>
+    <g>
+      <rect class="cls-1" x="78" width="22" height="212"/>
+      <rect class="cls-1" x="52" y="26" width="22" height="160"/>
+      <rect class="cls-1" x="26" y="44" width="22" height="124"/>
+      <rect class="cls-1" y="95.99" width="22" height="20"/>
+    </g>
+    <g>
+      <rect class="cls-1" x="440" width="22" height="212"/>
+      <rect class="cls-1" x="466" y="26" width="22" height="160"/>
+      <rect class="cls-1" x="492" y="44" width="22" height="124"/>
+      <rect class="cls-1" x="518" y="96" width="22" height="20"/>
+    </g>
+  </g>
+  <g>
+    <polygon class="cls-1" points="192 95.88 128 95.88 128 62.38 110 62.38 110 147.38 128 147.38 128 113.88 192 113.88 192 147.38 210 147.38 210 62.38 192 62.38 192 95.88"/>
+    <polygon class="cls-1" points="302 106.92 279.54 129.38 238 129.38 238 95.88 220 95.88 220 147.38 220 147.38 286.99 147.38 320 114.38 320 62.38 302 62.38 302 106.92"/>
+    <polygon class="cls-1" points="396.99 62.38 330 62.38 330 80.38 389.53 80.38 405.03 95.88 405.03 95.88 330 95.88 330 113.88 405.04 113.88 389.54 129.38 330 129.38 330 147.38 396.99 147.38 430 114.38 430 95.39 396.99 62.38"/>
+  </g>
+  <g class="cls-3">
+    <text class="cls-2" transform="translate(146.14 202.65)"><tspan x="0" y="0">C O</tspan><tspan class="cls-4" x="56.66" y="0" xml:space="preserve"> A</tspan><tspan x="83.25" y="0" xml:space="preserve"> C H I N G</tspan></text>
+  </g>
+</svg>

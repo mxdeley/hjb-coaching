@@ -19,6 +19,7 @@
     "@payloadcms/next": "beta",
     "@payloadcms/plugin-cloud": "beta",
     "@payloadcms/richtext-lexical": "beta",
+    "@radix-ui/react-navigation-menu": "^1.2.0",
     "@radix-ui/react-slot": "^1.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -29,6 +30,7 @@
     "payload": "beta",
     "react": "19.0.0-rc-06d0b89e-20240801",
     "react-dom": "19.0.0-rc-06d0b89e-20240801",
+    "react-hook-form": "^7.53.0",
     "sharp": "0.32.6",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7"

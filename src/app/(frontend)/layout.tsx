@@ -7,6 +7,7 @@ type LayoutProps = {
 }
 
 import './globals.css'
+import Header from '@/components/header'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -16,7 +17,8 @@ const fontSans = FontSans({
 const Layout = ({ children }: LayoutProps) => {
   return (
     <html>
-      <body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
+      <body className={cn('min-h-screen  font-sans antialiased', fontSans.variable)}>
+        <Header />
         {children}
       </body>
     </html>

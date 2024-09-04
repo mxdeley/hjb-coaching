@@ -11,9 +11,5 @@ export default function GetStartedLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  )
+  return <body>{children}</body>
 }

@@ -1,18 +1,4 @@
-// import { client } from '../../../../../postmark'
 
-// export async function POST(request: any) {
-//   const res = await request.json()
-//   const { subject, body } = res
-
-//   client.sendEmail({
-//     From: 'daniel@madeleydesignstudio.org',
-//     To: 'daniel@madeleydesignstudio.org',
-//     Subject: subject,
-//     TextBody: body,
-//   })
-
-//   return Response.json({ res })
-// }
 import { client } from '../../../../../postmark'
 
 async function sendEmail(data: { subject: string; body: string; from: string }) {

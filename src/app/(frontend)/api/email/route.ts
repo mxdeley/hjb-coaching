@@ -15,7 +15,7 @@
 // }
 import { client } from '../../../../../postmark'
 
-export async function sendEmail(data: { subject: string; body: string; from: string }) {
+async function sendEmail(data: { subject: string; body: string; from: string }) {
   try {
     const result = await client.sendEmail({
       From: 'daniel@madeleydesignstudio.org',

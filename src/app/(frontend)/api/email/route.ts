@@ -26,12 +26,20 @@ async function sendEmail(data: { subject: string; body: string; from: string }) 
     return { success: true, message: 'Email sent successfully' }
   } catch (error) {
     console.error('Error sending email:', error)
-    return { success: false, message: 'Failed to send email' }
+    return { success: false, message: 'Failed to send email', error: (error as Error).message }
   }
 }
 
 export async function POST(request: Request) {
-  const data = await request.json()
-  const result = await sendEmail(data)
-  return Response.json(result)
+  try {
+    const data = await request.json()
+    const result = await sendEmail(data)
+    return Response.json(result)
+  } catch (error) {
+    console.error('Error in POST route:', error)
+    return Response.json(
+      { success: false, message: 'Internal server error', error: (error as Error).message },
+      { status: 500 },
+    )
+  }
 }

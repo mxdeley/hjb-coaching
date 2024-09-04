@@ -20,7 +20,6 @@ const Layout = ({ children }: LayoutProps) => {
     <html>
       <body className={cn('min-h-screen  font-sans antialiased', fontSans.variable)}>
         <FathomAnalytics />
-
         <Header />
         {children}
       </body>

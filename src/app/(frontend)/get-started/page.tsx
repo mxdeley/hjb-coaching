@@ -47,17 +47,47 @@ export default function QuestionnaireForm() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
-        <h2 className="text-4xl font-extrabold text-white text-center">
+      <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-4">
+        <h2 className="text-4xl font-extrabold text-white text-center mb-8">
           Your training begins today
         </h2>
+        <div className="grid grid-cols-2 gap-4 max-w-xl w-full">
+          <a
+            href="/success-stories"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white p-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+          >
+            <h3 className="text-xl font-bold mb-2">Success Stories</h3>
+            <p className="text-sm">Get inspired by others</p>
+          </a>
+          <a
+            href="/programmes"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white p-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+          >
+            <h3 className="text-xl font-bold mb-2">Programmes</h3>
+            <p className="text-sm">Find your perfect fit</p>
+          </a>
+          <a
+            href="/nutrition"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white p-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+          >
+            <h3 className="text-xl font-bold mb-2">Nutrition</h3>
+            <p className="text-sm">Fuel your progress</p>
+          </a>
+          <a
+            href="/blog"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white p-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+          >
+            <h3 className="text-xl font-bold mb-2">Blog</h3>
+            <p className="text-sm">Stay informed</p>
+          </a>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md mx-auto">
+    <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md">
         <h2 className="text-3xl font-extrabold text-white text-center mb-8">Questionnaire</h2>
         <div className="mt-4">
           <label className="block text-sm font-medium text-gray-400">

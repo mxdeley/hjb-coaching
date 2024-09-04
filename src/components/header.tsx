@@ -1,8 +1,10 @@
-import Link from 'next/link'
-import React from 'react'
-import Image from 'next/image'
+'use client'
 
-import { cn } from '@/lib/utils'
+import Image from 'next/image'
+import Link from 'next/link'
+import React, { useState } from 'react'
+import { Menu, X } from 'lucide-react'
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,8 +12,8 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
+import { cn } from '@/lib/utils'
 import { Button } from './ui/button'
 
 const components: { title: string; href: string; description: string }[] = [
@@ -52,15 +54,17 @@ const components: { title: string; href: string; description: string }[] = [
 ]
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
   return (
     <div className="z-50 w-full fixed text-gray-50 border-b border-gray-50 bg-gray-800/70 backdrop-blur-xl">
-      <header className="flex mx-auto items-center justify-between py-3 max-w-7xl ">
+      <header className="flex mx-auto items-center justify-between py-3 px-4 max-w-7xl">
         <div>
           <Link href="/">
             <Image src="/logo.svg" alt="logo" width={100} height={20} />
           </Link>
         </div>
-        <nav>
+        <nav className="hidden md:block">
           <NavigationMenu>
             <NavigationMenuList className="flex items-center gap-4">
               <NavigationMenuItem>
@@ -76,7 +80,7 @@ const Header = () => {
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Programmes</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                     {components.map((component) => (
                       <ListItem key={component.title} title={component.title} href={component.href}>
                         {component.description}
@@ -105,7 +109,40 @@ const Header = () => {
             </NavigationMenuList>
           </NavigationMenu>
         </nav>
+        <div className="md:hidden">
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </header>
+      {isMenuOpen && (
+        <div className="md:hidden fixed inset-0 bg-gray-800 z-50 flex flex-col h-screen">
+          <div className="flex justify-end p-4">
+            <button onClick={() => setIsMenuOpen(false)}>
+              <X size={24} />
+            </button>
+          </div>
+          <nav className="flex flex-col items-center justify-center flex-grow gap-8">
+            <Link href="/about" className="font-medium text-lg">
+              About
+            </Link>
+            <Link href="/success-stories" className="font-medium text-lg">
+              Success Stories
+            </Link>
+            <Link href="/nutrition" className="font-medium text-lg">
+              Nutrition
+            </Link>
+            <Link href="/blog" className="font-medium text-lg">
+              Blog
+            </Link>
+            <Link href="/get-started" className="font-medium text-lg">
+              <Button size={'lg'} className="bg-gray-50 text-gray-800">
+                Get Started
+              </Button>
+            </Link>
+          </nav>
+        </div>
+      )}
     </div>
   )
 }

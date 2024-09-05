@@ -6,8 +6,7 @@ type LayoutProps = {
   children: ReactNode
 }
 
-import './globals.css'
-import { FathomAnalytics } from '../fathom'
+import Header from '@/components/header'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -16,12 +15,10 @@ const fontSans = FontSans({
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <html>
-      <body className={cn('min-h-screen  font-sans antialiased', fontSans.variable)}>
-        <FathomAnalytics />
-        {children}
-      </body>
-    </html>
+    <>
+      <Header />
+      {children}
+    </>
   )
 }
 

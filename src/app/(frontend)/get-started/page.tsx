@@ -9,6 +9,7 @@ export default function QuestionnaireForm() {
   const [hobby, setHobby] = useState('')
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [showQuestionnaire, setShowQuestionnaire] = useState(false)
 
   const questions = [
     { label: 'Name', value: name, setter: setName },
@@ -39,6 +40,12 @@ export default function QuestionnaireForm() {
     }
   }
 
+  function handleBack() {
+    if (currentQuestion > 0) {
+      setCurrentQuestion(currentQuestion - 1)
+    }
+  }
+
   function handleNext() {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1)
@@ -47,11 +54,11 @@ export default function QuestionnaireForm() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-4">
-        <h2 className="text-4xl font-extrabold text-white text-center mb-8">
+      <div className="min-h-screen text-white flex flex-col items-center justify-center p-4 bg-gray-900">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-white text-center mb-8">
           Your training begins today
         </h2>
-        <div className="grid grid-cols-2 gap-4 max-w-xl w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-xl w-full">
           <a
             href="/success-stories"
             className="bg-indigo-600 hover:bg-indigo-700 text-white p-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
@@ -84,38 +91,101 @@ export default function QuestionnaireForm() {
       </div>
     )
   }
+  if (!showQuestionnaire) {
+    return (
+      <div className="min-h-screen flex flex-col md:flex-row overflow-hidden relative">
+        <div className="w-full md:w-[55%] bg-gray-900 transform -skew-y-[15deg] md:skew-y-0 md:-skew-x-[15deg] origin-top-left md:origin-top-right overflow-hidden absolute inset-0 z-50 h-[55%] md:h-full">
+          <div className="transform skew-y-[15deg] md:skew-y-0 md:skew-x-[15deg] h-full flex flex-col items-center justify-center p-4 md:p-0">
+            <div className="absolute top-4 left-4">
+              <a
+                href="./"
+                className="inline-block py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Back to Home
+              </a>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-white text-center max-w-2xl mt-12 md:mt-0">
+              Fill out a short survey to find out the best workout plan for you
+            </h2>
+            <button
+              onClick={() => setShowQuestionnaire(true)}
+              className="mt-6 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Get Started
+            </button>
+          </div>
+        </div>
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/questionaire-2.jpg')" }}
+        ></div>
+      </div>
+    )
+  }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md">
-        <h2 className="text-3xl font-extrabold text-white text-center mb-8">Questionnaire</h2>
-        <div className="mt-4">
-          <label className="block text-sm font-medium text-gray-400">
-            {questions[currentQuestion].label}
-          </label>
-          <input
-            type="text"
-            value={questions[currentQuestion].value}
-            onChange={(e) => questions[currentQuestion].setter(e.target.value)}
-            className="mt-1 p-2 w-full rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:border-white"
-          />
+    <div className="min-h-screen flex flex-col md:flex-row overflow-hidden relative">
+      {/* Top/Left side - Question */}
+      <div className="w-full md:w-[55%] bg-gray-900 transform -skew-y-[15deg] md:skew-y-0 md:-skew-x-[15deg] origin-top-left md:origin-top-right overflow-hidden absolute inset-0 z-50 h-[55%] md:h-full">
+        <div className="transform skew-y-[15deg] md:skew-y-0 md:skew-x-[15deg] h-full flex items-center justify-center">
+          <div className="w-full max-w-md px-4 md:px-0">
+            {currentQuestion === 0 && (
+              <div className="mb-4">
+                <a
+                  href="./"
+                  className="inline-block py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Back to Home
+                </a>
+              </div>
+            )}
+            <h2 className="text-2xl md:text-3xl font-extrabold text-white text-center mb-8">
+              Questionnaire
+            </h2>
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-400">
+                {questions[currentQuestion].label}
+              </label>
+              <input
+                type="text"
+                value={questions[currentQuestion].value}
+                onChange={(e) => questions[currentQuestion].setter(e.target.value)}
+                className="mt-1 p-2 w-full rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:border-white"
+              />
+            </div>
+            <div className="flex justify-between mt-6 w-full gap-4">
+              <button
+                onClick={handleBack}
+                disabled={currentQuestion === 0}
+                className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed w-full"
+              >
+                Back
+              </button>
+              {currentQuestion < questions.length - 1 ? (
+                <button
+                  onClick={handleNext}
+                  className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-full"
+                >
+                  Next
+                </button>
+              ) : (
+                <button
+                  onClick={sendEmail}
+                  className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-full"
+                >
+                  Submit
+                </button>
+              )}
+            </div>
+          </div>
         </div>
-        {currentQuestion < questions.length - 1 ? (
-          <button
-            onClick={handleNext}
-            className="mt-6 w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Next
-          </button>
-        ) : (
-          <button
-            onClick={sendEmail}
-            className="mt-6 w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Submit Responses
-          </button>
-        )}
       </div>
+
+      {/* Bottom/Right side - Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/questionaire-2.jpg')" }}
+      ></div>
     </div>
   )
 }

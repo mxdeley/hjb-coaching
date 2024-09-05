@@ -17,7 +17,11 @@ export default function QuestionnaireForm({ form, onSubmit, questions }: Props) 
     handleSubmit,
     formState: { errors },
     trigger,
+    setValue,
+    watch,
   } = form
+
+  const currentValue = watch(questions[currentQuestion].name)
 
   const handleBack = useCallback(() => {
     if (currentQuestion > 0) {
@@ -32,6 +36,10 @@ export default function QuestionnaireForm({ form, onSubmit, questions }: Props) 
       setCurrentQuestion((prev) => prev + 1)
     }
   }, [currentQuestion, trigger, questions])
+
+  const handleButtonSelect = (option: string) => {
+    setValue(questions[currentQuestion].name, option)
+  }
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row overflow-hidden relative">
@@ -56,11 +64,42 @@ export default function QuestionnaireForm({ form, onSubmit, questions }: Props) 
                 <label className="block text-sm font-medium text-gray-400">
                   {questions[currentQuestion].label}
                 </label>
-                <input
-                  {...register(questions[currentQuestion].name)}
-                  type={questions[currentQuestion].name === 'email' ? 'email' : 'text'}
-                  className="mt-1 p-2 w-full rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:border-white"
-                />
+                {questions[currentQuestion].type === 'button' ? (
+                  <div className="flex space-x-2 mt-2">
+                    {questions[currentQuestion].options?.map((option) => (
+                      <button
+                        key={option}
+                        type="button"
+                        onClick={() => handleButtonSelect(option)}
+                        className={`py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
+                          currentValue === option
+                            ? 'bg-indigo-600 text-white'
+                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                        }`}
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                ) : questions[currentQuestion].type === 'select' ? (
+                  <select
+                    {...register(questions[currentQuestion].name)}
+                    className="mt-1 p-2 w-full rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:border-white"
+                  >
+                    <option value="">Select an option</option>
+                    {questions[currentQuestion].options?.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    {...register(questions[currentQuestion].name)}
+                    type={questions[currentQuestion].name === 'email' ? 'email' : 'text'}
+                    className="mt-1 p-2 w-full rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:border-white"
+                  />
+                )}
                 {errors[questions[currentQuestion].name] && (
                   <p className="mt-1 text-sm text-red-500">
                     {errors[questions[currentQuestion].name]?.message}

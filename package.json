@@ -15,6 +15,7 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
     "@payloadcms/db-postgres": "beta",
     "@payloadcms/next": "beta",
     "@payloadcms/plugin-cloud": "beta",
@@ -37,7 +38,8 @@
     "react-hook-form": "^7.53.0",
     "sharp": "0.32.6",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20.14.9",

@@ -1,56 +1,79 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+// Define a schema for our form inputs
+const formSchema = z.object({
+  name: z.string().min(2, { message: 'Name must be at least 2 characters long' }),
+  email: z.string().email({ message: 'Invalid email address' }),
+  age: z.string().refine((val) => !isNaN(Number(val)) && Number(val) >= 16 && Number(val) <= 120, {
+    message: 'Age must be a number between 16 and 120',
+  }),
+  hobby: z.string().min(2, { message: 'Hobby must be at least 2 characters long' }),
+})
+
+type FormInputs = z.infer<typeof formSchema>
+
+type Question = {
+  label: string
+  name: keyof FormInputs
+}
+
+const questions: Question[] = [
+  { label: 'Name', name: 'name' },
+  { label: 'Email', name: 'email' },
+  { label: 'Age', name: 'age' },
+  { label: 'Favorite Hobby', name: 'hobby' },
+]
 
 export default function QuestionnaireForm() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('') // Add email state
-  const [age, setAge] = useState('')
-  const [hobby, setHobby] = useState('')
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [showQuestionnaire, setShowQuestionnaire] = useState(false)
 
-  const questions = [
-    { label: 'Name', value: name, setter: setName },
-    { label: 'Email', value: email, setter: setEmail },
-    { label: 'Age', value: age, setter: setAge },
-    { label: 'Favorite Hobby', value: hobby, setter: setHobby },
-  ]
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    trigger,
+  } = useForm<FormInputs>({
+    resolver: zodResolver(formSchema),
+  })
 
-  async function sendEmail() {
+  const onSubmit: SubmitHandler<FormInputs> = useCallback(async (data) => {
     try {
-      const body = `Name: ${name}\nEmail: ${email}\nAge: ${age}\nHobby: ${hobby}`
+      const body = `Name: ${data.name}\nEmail: ${data.email}\nAge: ${data.age}\nHobby: ${data.hobby}`
       await fetch('/api/email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          subject: `Questionnaire Response from ${email}`,
+          subject: `Questionnaire Response from ${data.email}`,
           body,
         }),
       })
-      setName('')
-      setEmail('')
-      setAge('')
-      setHobby('')
       setIsSubmitted(true)
     } catch (e) {
       console.error(e)
       alert('Failed to send response')
     }
-  }
+  }, [])
 
-  function handleBack() {
+  const handleBack = useCallback(() => {
     if (currentQuestion > 0) {
-      setCurrentQuestion(currentQuestion - 1)
+      setCurrentQuestion((prev) => prev - 1)
     }
-  }
+  }, [currentQuestion])
 
-  function handleNext() {
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1)
+  const handleNext = useCallback(async () => {
+    const currentField = questions[currentQuestion].name
+    const isValid = await trigger(currentField)
+    if (isValid && currentQuestion < questions.length - 1) {
+      setCurrentQuestion((prev) => prev + 1)
     }
-  }
+  }, [currentQuestion, trigger])
 
   if (isSubmitted) {
     return (
@@ -142,41 +165,50 @@ export default function QuestionnaireForm() {
             <h2 className="text-2xl md:text-3xl font-extrabold text-white text-center mb-8">
               Questionnaire
             </h2>
-            <div className="mt-4">
-              <label className="block text-sm font-medium text-gray-400">
-                {questions[currentQuestion].label}
-              </label>
-              <input
-                type="text"
-                value={questions[currentQuestion].value}
-                onChange={(e) => questions[currentQuestion].setter(e.target.value)}
-                className="mt-1 p-2 w-full rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:border-white"
-              />
-            </div>
-            <div className="flex justify-between mt-6 w-full gap-4">
-              <button
-                onClick={handleBack}
-                disabled={currentQuestion === 0}
-                className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed w-full"
-              >
-                Back
-              </button>
-              {currentQuestion < questions.length - 1 ? (
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-gray-400">
+                  {questions[currentQuestion].label}
+                </label>
+                <input
+                  {...register(questions[currentQuestion].name)}
+                  type={questions[currentQuestion].name === 'email' ? 'email' : 'text'}
+                  className="mt-1 p-2 w-full rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:border-white"
+                />
+                {errors[questions[currentQuestion].name] && (
+                  <p className="mt-1 text-sm text-red-500">
+                    {errors[questions[currentQuestion].name]?.message}
+                  </p>
+                )}
+              </div>
+              <div className="flex justify-between mt-6 w-full gap-4">
                 <button
-                  onClick={handleNext}
-                  className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-full"
+                  type="button"
+                  onClick={handleBack}
+                  disabled={currentQuestion === 0}
+                  className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed w-full"
                 >
-                  Next
+                  Back
                 </button>
-              ) : (
-                <button
-                  onClick={sendEmail}
-                  className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-full"
-                >
-                  Submit
-                </button>
-              )}
-            </div>
+                {currentQuestion < questions.length - 1 ? (
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-full"
+                  >
+                    Next
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleSubmit(onSubmit)}
+                    className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-full"
+                  >
+                    Submit
+                  </button>
+                )}
+              </div>
+            </form>
           </div>
         </div>
       </div>

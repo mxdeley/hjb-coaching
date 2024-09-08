@@ -1,30 +1,16 @@
 'use client'
 
+import { format } from 'date-fns'
 import { useState } from 'react'
 import { z } from 'zod'
+import IntroView from './_components/intro-view'
 import QuestionnaireForm from './_components/questionaire-form'
 import { SubmittedView } from './_components/submitted-view'
-import IntroView from './_components/intro-view'
-
-// Define schema
-const formSchema = z.object({
-  bodyType: z.enum(['Ectomorph', 'Endomorph', 'Mesomorph'], {
-    errorMap: () => ({ message: 'Please select a valid body type' }),
-  }),
-  name: z.string().min(2, { message: 'Name must be at least 2 characters long' }),
-  email: z.string().email({ message: 'Invalid email address' }),
-  age: z.string().refine((val) => !isNaN(Number(val)) && Number(val) >= 16 && Number(val) <= 120, {
-    message: 'Age must be a number between 16 and 120',
-  }),
-  hobby: z.string().min(2, { message: 'Hobby must be at least 2 characters long' }),
-})
-
-export type FormInputs = z.infer<typeof formSchema>
 
 export type Question = {
   label: string
-  name: keyof FormInputs
-  type?: 'text' | 'email' | 'select' | 'button'
+  name: keyof FormInputs | string
+  type?: 'text' | 'email' | 'select' | 'button' | 'social' | 'date' | 'radio-with-other'
   options?: string[]
 }
 
@@ -35,11 +21,70 @@ const questions: Question[] = [
     type: 'button',
     options: ['Ectomorph', 'Endomorph', 'Mesomorph'],
   },
-  { label: 'Name', name: 'name' },
-  { label: 'Email', name: 'email' },
-  { label: 'Age', name: 'age' },
-  { label: 'Favorite Hobby', name: 'hobby' },
+  { label: 'What is your name?', name: 'name' },
+  { label: 'What is your email for contact?', name: 'email' },
+  {
+    label: 'What are your social media handles?',
+    name: 'socialMedia',
+    type: 'social',
+  },
+  { label: 'What is your age?', name: 'age' },
+  {
+    label: 'What are your fitness goals?',
+    name: 'fitnessGoals',
+    type: 'radio-with-other',
+    options: [
+      'Build More Muscle',
+      'Lose Body Fat',
+      'Improve General Fitness',
+      'Want to compete in a Physique contest',
+      'Other',
+    ],
+  },
+  {
+    label: 'What is your ideal start date?',
+    name: 'startDate',
+    type: 'date',
+  },
+  { label: 'What is your phone number? (so I can contact you on WhatsApp)', name: 'phone' },
 ]
+
+// Define schema
+export const questionSchemas = {
+  bodyType: z.enum(['Ectomorph', 'Endomorph', 'Mesomorph']),
+  name: z.string().min(2),
+  email: z.string().email(),
+  socialMedia: z.object({
+    instagram: z.string().optional(),
+    x: z.string().optional(),
+    facebook: z.string().optional(),
+    tiktok: z.string().optional(),
+  }),
+  age: z.string().refine((val) => !isNaN(Number(val)) && Number(val) >= 16 && Number(val) <= 120),
+  fitnessGoals: z.union([
+    z.enum([
+      'Build More Muscle',
+      'Lose Body Fat',
+      'Improve General Fitness',
+      'Want to compete in a Physique contest',
+    ]),
+    z.object({
+      other: z.string().min(1),
+    }),
+  ]),
+  startDate: z.date(),
+  phone: z.string().min(10),
+}
+
+export const formSchema = z.object({
+  ...questionSchemas,
+  currentQuestion: z
+    .number()
+    .min(0)
+    .max(questions.length - 1),
+})
+
+export type FormInputs = z.infer<typeof formSchema>
 
 export default function GetStartedPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -47,7 +92,21 @@ export default function GetStartedPage() {
 
   const onSubmit = async (data: FormInputs) => {
     try {
-      const body = `Name: ${data.name}\nEmail: ${data.email}\nAge: ${data.age}\nHobby: ${data.hobby}`
+      const fitnessGoal =
+        typeof data.fitnessGoals === 'string'
+          ? data.fitnessGoals
+          : `Other: ${data.fitnessGoals.other}`
+
+      const body = `Name: ${data.name}
+Email: ${data.email}
+Age: ${data.age}
+Start Date: ${format(data.startDate, 'PPP')}
+Fitness Goals: ${fitnessGoal}
+Social Media:
+  Instagram: ${data.socialMedia.instagram || 'N/A'}
+  X: ${data.socialMedia.x || 'N/A'}
+  Facebook: ${data.socialMedia.facebook || 'N/A'}
+  TikTok: ${data.socialMedia.tiktok || 'N/A'}`
       await fetch('/api/email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -63,7 +122,7 @@ export default function GetStartedPage() {
     }
   }
 
-  if (!isSubmitted) {
+  if (isSubmitted) {
     return <SubmittedView />
   }
 

@@ -29,5 +29,11 @@ export default async function Programmes() {
     return acc
   }, {}) as WorkoutsByCategory
 
-  return <ProgrammesList initialWorkouts={workoutsByCategory} />
+  return (
+    <ProgrammesList
+      initialWorkouts={workoutsByCategory}
+      cardStyle="p-4 border rounded-lg shadow-md mb-4"
+      categoryStyle="font-bold text-xl mb-2"
+    />
+  )
 }

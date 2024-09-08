@@ -1,27 +1,17 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { UseFormReturn } from 'react-hook-form'
 import { FormInputs, Question } from '../page'
 
 type Props = {
-  form: UseFormReturn<FormInputs>
   onSubmit: (data: FormInputs) => Promise<void>
   questions: Question[]
 }
 
-export default function QuestionnaireForm({ form, onSubmit, questions }: Props) {
+export default function QuestionnaireForm({ onSubmit, questions }: Props) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    trigger,
-    setValue,
-    watch,
-  } = form
-
-  const currentValue = watch(questions[currentQuestion].name)
+  const [formData, setFormData] = useState<Partial<FormInputs>>({})
+  const [errors, setErrors] = useState<Partial<Record<keyof FormInputs, string>>>({})
 
   const handleBack = useCallback(() => {
     if (currentQuestion > 0) {
@@ -29,16 +19,32 @@ export default function QuestionnaireForm({ form, onSubmit, questions }: Props) 
     }
   }, [currentQuestion])
 
-  const handleNext = useCallback(async () => {
-    const currentField = questions[currentQuestion].name
-    const isValid = await trigger(currentField)
-    if (isValid && currentQuestion < questions.length - 1) {
+  const handleNext = useCallback(() => {
+    const currentField = questions[currentQuestion].name as keyof FormInputs
+    const currentValue = formData[currentField]
+
+    // Simple validation - you might want to implement more robust validation
+    if (!currentValue) {
+      setErrors({ ...errors, [currentField]: 'This field is required' })
+      return
+    }
+
+    setErrors({ ...errors, [currentField]: undefined })
+
+    if (currentQuestion < questions.length - 1) {
       setCurrentQuestion((prev) => prev + 1)
     }
-  }, [currentQuestion, trigger, questions])
+  }, [currentQuestion, formData, errors, questions])
 
-  const handleButtonSelect = (option: string) => {
-    setValue(questions[currentQuestion].name, option)
+  const handleInputChange = (name: keyof FormInputs, value: string) => {
+    setFormData({ ...formData, [name]: value })
+    setErrors({ ...errors, [name]: undefined })
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // You might want to add final validation here before submitting
+    onSubmit(formData as FormInputs)
   }
 
   return (
@@ -59,7 +65,7 @@ export default function QuestionnaireForm({ form, onSubmit, questions }: Props) 
             <h2 className="text-2xl md:text-3xl font-extrabold text-white text-center mb-8">
               Questionnaire
             </h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit}>
               <div className="mt-4">
                 <label className="block text-sm font-medium text-gray-400">
                   {questions[currentQuestion].label}
@@ -70,9 +76,14 @@ export default function QuestionnaireForm({ form, onSubmit, questions }: Props) 
                       <button
                         key={option}
                         type="button"
-                        onClick={() => handleButtonSelect(option)}
+                        onClick={() =>
+                          handleInputChange(
+                            questions[currentQuestion].name as keyof FormInputs,
+                            option,
+                          )
+                        }
                         className={`py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
-                          currentValue === option
+                          formData[questions[currentQuestion].name as keyof FormInputs] === option
                             ? 'bg-indigo-600 text-white'
                             : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
                         }`}
@@ -83,7 +94,13 @@ export default function QuestionnaireForm({ form, onSubmit, questions }: Props) 
                   </div>
                 ) : questions[currentQuestion].type === 'select' ? (
                   <select
-                    {...register(questions[currentQuestion].name)}
+                    value={formData[questions[currentQuestion].name as keyof FormInputs] || ''}
+                    onChange={(e) =>
+                      handleInputChange(
+                        questions[currentQuestion].name as keyof FormInputs,
+                        e.target.value,
+                      )
+                    }
                     className="mt-1 p-2 w-full rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:border-white"
                   >
                     <option value="">Select an option</option>
@@ -95,14 +112,20 @@ export default function QuestionnaireForm({ form, onSubmit, questions }: Props) 
                   </select>
                 ) : (
                   <input
-                    {...register(questions[currentQuestion].name)}
+                    value={formData[questions[currentQuestion].name as keyof FormInputs] || ''}
+                    onChange={(e) =>
+                      handleInputChange(
+                        questions[currentQuestion].name as keyof FormInputs,
+                        e.target.value,
+                      )
+                    }
                     type={questions[currentQuestion].name === 'email' ? 'email' : 'text'}
                     className="mt-1 p-2 w-full rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:border-white"
                   />
                 )}
-                {errors[questions[currentQuestion].name] && (
+                {errors[questions[currentQuestion].name as keyof FormInputs] && (
                   <p className="mt-1 text-sm text-red-500">
-                    {errors[questions[currentQuestion].name]?.message}
+                    {errors[questions[currentQuestion].name as keyof FormInputs]}
                   </p>
                 )}
               </div>

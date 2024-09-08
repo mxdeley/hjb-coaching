@@ -1,9 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
 import QuestionnaireForm from './_components/questionaire-form'
 import SubmittedView from './_components/submitted-view'
 import IntroView from './_components/intro-view'
@@ -47,10 +45,6 @@ export default function GetStartedPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [showQuestionnaire, setShowQuestionnaire] = useState(false)
 
-  const form = useForm<FormInputs>({
-    resolver: zodResolver(formSchema),
-  })
-
   const onSubmit = async (data: FormInputs) => {
     try {
       const body = `Name: ${data.name}\nEmail: ${data.email}\nAge: ${data.age}\nHobby: ${data.hobby}`
@@ -77,5 +71,5 @@ export default function GetStartedPage() {
     return <IntroView onStart={() => setShowQuestionnaire(true)} />
   }
 
-  return <QuestionnaireForm form={form} onSubmit={onSubmit} questions={questions} />
+  return <QuestionnaireForm onSubmit={onSubmit} questions={questions} />
 }

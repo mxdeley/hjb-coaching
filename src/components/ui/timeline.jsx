@@ -1,15 +1,10 @@
 'use client'
-import { useScroll, useTransform, motion, HTMLMotionProps } from 'framer-motion'
+import { useScroll, useTransform, motion } from 'framer-motion'
 import React, { useEffect, useRef, useState } from 'react'
 
-interface TimelineEntry {
-  title: string
-  content: React.ReactNode
-}
-
-export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
-  const ref = useRef<HTMLDivElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
+export const Timeline = ({ data }) => {
+  const ref = useRef(null)
+  const containerRef = useRef(null)
   const [height, setHeight] = useState(0)
 
   useEffect(() => {
@@ -28,7 +23,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1])
 
   return (
-    <div className="w-full  dark:bg-neutral-950 font-sans md:px-10" ref={containerRef}>
+    <div className="w-full  font-sans md:px-10" ref={containerRef}>
       <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
         <h2 className="text-lg md:text-4xl mb-4 text-black dark:text-white max-w-4xl">
           Changelog from my journey
@@ -38,7 +33,6 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           journey.
         </p>
       </div>
-
       <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
         {data.map((item, index) => (
           <div key={index} className="flex justify-start pt-10 md:pt-40 md:gap-10">
@@ -70,9 +64,8 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               height: heightTransform,
               opacity: opacityTransform,
             }}
-          >
-            <div className="absolute inset-x-0 top-0 w-[2px] bg-gradient-to-t from-purple-500 via-blue-500 to-transparent from-[0%] via-[10%] rounded-full" />
-          </motion.div>
+            className="absolute inset-x-0 top-0  w-[2px] bg-gradient-to-t from-purple-500 via-blue-500 to-transparent from-[0%] via-[10%] rounded-full"
+          />
         </div>
       </div>
     </div>

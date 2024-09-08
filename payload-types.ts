@@ -14,6 +14,7 @@ export interface Config {
     users: User;
     media: Media;
     posts: Post;
+    workouts: Workout;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -88,6 +89,20 @@ export interface Post {
   id: number;
   title: string;
   description: string;
+  createdAt: string;
+  updatedAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workouts".
+ */
+export interface Workout {
+  id: number;
+  title: string;
+  category: 'Strength' | 'Endurance' | 'Cardio' | 'Flexibility';
+  warmup: string;
+  programme: string;
+  cooldown: string;
   createdAt: string;
   updatedAt: string;
 }

@@ -88,8 +88,8 @@ export interface Post {
   id: number;
   title: string;
   description: string;
-  updatedAt: string;
   createdAt: string;
+  updatedAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

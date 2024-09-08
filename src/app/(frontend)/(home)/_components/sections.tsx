@@ -3,11 +3,11 @@ import Image from 'next/image'
 import React from 'react'
 import { Carousel, Card } from '@/components/ui/apple-cards-carousel'
 
-export function SubmittedView() {
+export function Sections() {
   const cards = data.map((card, index) => <Card key={card.src} card={card} index={index} />)
 
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-screen py-10">
       <h2 className="max-w-7xl pl-4 mx-auto text-xl md:text-5xl font-bold text-white font-sans">
         Check out my latest programmes.
       </h2>

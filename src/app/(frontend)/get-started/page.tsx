@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { z } from 'zod'
 import QuestionnaireForm from './_components/questionaire-form'
-import SubmittedView from './_components/submitted-view'
+import { SubmittedView } from './_components/submitted-view'
 import IntroView from './_components/intro-view'
 
 // Define schema
@@ -63,7 +63,7 @@ export default function GetStartedPage() {
     }
   }
 
-  if (isSubmitted) {
+  if (!isSubmitted) {
     return <SubmittedView />
   }
 

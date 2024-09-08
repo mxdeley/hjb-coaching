@@ -16,5 +16,12 @@ export const Posts: CollectionConfig = {
       type: 'textarea',
       required: true,
     },
+    {
+      name: 'createdAt',
+      type: 'date',
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
 }

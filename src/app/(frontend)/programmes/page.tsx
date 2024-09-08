@@ -3,6 +3,14 @@ import { getPayloadHMR } from '@payloadcms/next/utilities'
 import config from '@payload-config'
 import ProgrammesList from './_components/programmes-list'
 
+interface Workout {
+  id: string
+  title: string
+  description: string
+}
+
+type WorkoutsByCategory = Record<string, Workout[]>
+
 export default async function Programmes() {
   const payload = await getPayloadHMR({
     config,
@@ -12,17 +20,14 @@ export default async function Programmes() {
     collection: 'workouts',
   })
 
-  const workoutsByCategory = workouts.docs.reduce<Record<string, typeof workouts.docs>>(
-    (acc, workout) => {
-      const category = workout.category || 'Uncategorized'
-      if (!acc[category]) {
-        acc[category] = []
-      }
-      acc[category].push(workout)
-      return acc
-    },
-    {},
-  )
+  const workoutsByCategory = workouts.docs.reduce<Record<string, Workout[]>>((acc, workout) => {
+    const category = workout.category || 'Uncategorized'
+    if (!acc[category]) {
+      acc[category] = []
+    }
+    acc[category].push(workout as any)
+    return acc
+  }, {}) as WorkoutsByCategory
 
   return <ProgrammesList initialWorkouts={workoutsByCategory} />
 }

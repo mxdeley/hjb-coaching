@@ -2,7 +2,16 @@
 
 import React, { useState } from 'react'
 
-const ProgrammesList = ({ initialWorkouts }) => {
+interface Workout {
+  id: string
+  title: string
+  description: string
+  // Add other workout properties as needed
+}
+
+type WorkoutsByCategory = Record<string, Workout[]>
+
+const ProgrammesList = ({ initialWorkouts }: { initialWorkouts: WorkoutsByCategory }) => {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [workoutsByCategory] = useState(initialWorkouts)
 

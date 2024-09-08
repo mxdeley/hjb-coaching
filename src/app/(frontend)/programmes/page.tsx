@@ -12,14 +12,17 @@ export default async function Programmes() {
     collection: 'workouts',
   })
 
-  const workoutsByCategory = workouts.docs.reduce((acc, workout) => {
-    const category = workout.category || 'Uncategorized'
-    if (!acc[category]) {
-      acc[category] = []
-    }
-    acc[category].push(workout)
-    return acc
-  }, {})
+  const workoutsByCategory = workouts.docs.reduce<Record<string, typeof workouts.docs>>(
+    (acc, workout) => {
+      const category = workout.category || 'Uncategorized'
+      if (!acc[category]) {
+        acc[category] = []
+      }
+      acc[category].push(workout)
+      return acc
+    },
+    {},
+  )
 
   return <ProgrammesList initialWorkouts={workoutsByCategory} />
 }

@@ -32,6 +32,8 @@ Dumbbell Bicep Curls – 3 sets of 10 reps.
 Tricep Dips – 3 sets of 10 reps.
 Cool-down (5-10 min): Light walk, stretch arms, chest, shoulders.
 
+---
+
 Muscle Endurance Programs
 Program 1: Circuit Training
 Warm-up (5-10 min): Jumping jacks, high knees, arm circles.
@@ -66,6 +68,8 @@ Burpees – 3 sets of 12 reps.
 Rest 1 minute between sets.
 Cool-down (5-10 min): Stretch hamstrings, quads, chest.
 
+---
+
 Cardiovascular Training Programs
 Program 1: HIIT (High-Intensity Interval Training)
 Warm-up (5-10 min): Jogging, dynamic stretches.
@@ -92,6 +96,8 @@ Jumping jacks – 1 minute.
 Burpees – 1 minute.
 Rest 1 minute, repeat 5 rounds.
 Cool-down (5-10 min): Light jog or walk, stretch legs and arms.
+
+---
 
 Flexibility Programs
 Program 1: Static Stretching Routine

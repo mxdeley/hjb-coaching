@@ -1,4 +1,5 @@
-import About from './_components/about'
+import { About } from './_components/about'
+import { BookNow } from './_components/book-now'
 import { Feedback } from './_components/feedback'
 import { Gallery } from './_components/gallery'
 import Hero from './_components/hero'
@@ -14,6 +15,7 @@ export default function Home() {
       <Sections />
       <Gallery />
       <Feedback />
+      <BookNow />
     </main>
   )
 }

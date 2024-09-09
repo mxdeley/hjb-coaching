@@ -12,7 +12,8 @@
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "email": "email dev"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -24,6 +25,7 @@
     "@radix-ui/react-navigation-menu": "^1.2.0",
     "@radix-ui/react-popover": "^1.1.1",
     "@radix-ui/react-slot": "^1.1.0",
+    "@react-email/components": "0.0.25",
     "@tabler/icons-react": "^3.14.0",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.0",
@@ -41,6 +43,7 @@
     "react": "19.0.0-rc-06d0b89e-20240801",
     "react-day-picker": "^9.0.9",
     "react-dom": "19.0.0-rc-06d0b89e-20240801",
+    "react-email": "^3.0.1",
     "react-hook-form": "^7.53.0",
     "sharp": "0.32.6",
     "tailwind-merge": "^2.5.2",

@@ -44,25 +44,25 @@ export const Carousel = ({ items, initialScroll = 0 }) => {
     }
   }
 
-  const handleCardClose = (index) => {
-    if (carouselRef.current) {
-      const cardWidth = isMobile() ? 230 : 384 // (md:w-96)
-      const gap = isMobile() ? 4 : 8
-      const scrollPosition = (cardWidth + gap) * (index + 1)
-      // carouselRef.current.scrollTo({
-      //   left: scrollPosition,
-      //   behavior: 'smooth',
-      // })
-      setCurrentIndex(index)
-    }
-  }
+  // const handleCardClose = (index) => {
+  //   if (carouselRef.current) {
+  //     const cardWidth = isMobile() ? 230 : 384 // (md:w-96)
+  //     const gap = isMobile() ? 4 : 8
+  //     const scrollPosition = (cardWidth + gap) * (index + 1)
+  //     carouselRef.current.scrollTo({
+  //       left: scrollPosition,
+  //       behavior: 'smooth',
+  //     })
+  //     setCurrentIndex(index)
+  //   }
+  // }
 
-  const isMobile = () => {
-    return window && window.innerWidth < 768
-  }
+  // const isMobile = () => {
+  //   return window && window.innerWidth < 768
+  // }
 
   return (
-    <CarouselContext.Provider value={{ onCardClose: handleCardClose, currentIndex }}>
+    <CarouselContext.Provider value={{ onCardClose: currentIndex }}>
       <div className="relative w-full">
         <div
           className="flex w-full overflow-x-scroll overscroll-x-auto py-10 md:py-20 scroll-smooth [scrollbar-width:none]"
@@ -157,7 +157,7 @@ export const Card = ({ card, index, layout = false }) => {
 
   const handleClose = () => {
     setOpen(false)
-    onCardClose(index)
+    // onCardClose(index)
   }
 
   return (

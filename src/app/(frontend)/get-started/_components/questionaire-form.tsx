@@ -3,7 +3,7 @@
 import { DatePickerDemo } from '@/components/ui/date-picker'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm } from 'react-hook-form'
-import { FormInputs, Question, formSchema } from '../page'
+import { FormInputs, Question, formSchema } from '../_components/schemas'
 import { SocialMediaInputs, SocialMediaPlatform } from './social-media-inputs'
 
 type Props = {

@@ -2,11 +2,10 @@
 
 import { format } from 'date-fns'
 import { useState } from 'react'
-import { z } from 'zod'
 import IntroView from './_components/intro-view'
 import QuestionnaireForm from './_components/questionaire-form'
-import { SubmittedView } from './_components/submitted-view'
 import { FormInputs, questions } from './_components/schemas'
+import { SubmittedView } from './_components/submitted-view'
 
 export default function GetStartedPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)

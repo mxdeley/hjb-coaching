@@ -1,4 +1,3 @@
-
 import { client } from '../../../../../postmark'
 
 async function sendEmail(data: { subject: string; body: string; from: string }) {
@@ -15,6 +14,10 @@ async function sendEmail(data: { subject: string; body: string; from: string }) 
     return { success: false, message: 'Failed to send email', error: (error as Error).message }
   }
 }
+
+
+
+// ... existing POST function
 
 export async function POST(request: Request) {
   try {

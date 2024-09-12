@@ -58,7 +58,7 @@ const Header = () => {
 
   return (
     <div className="z-50 w-full fixed text-gray-50 border-b border-gray-50 bg-gray-800/70 backdrop-blur-xl">
-      <header className="flex mx-auto items-center justify-between py-3 px-4 max-w-7xl">
+      <header className="flex mx-auto items-center justify-between py-3 px-4 max-w-6xl">
         <div>
           <Link href="/">
             <Image src="/logo.svg" alt="logo" width={80} height={10} />
@@ -68,12 +68,12 @@ const Header = () => {
           <NavigationMenu>
             <NavigationMenuList className="flex items-center gap-4">
               <NavigationMenuItem>
-                <Link href="/about" className="font-medium text-sm">
+                <Link href="/about" className="font-medium text-xs">
                   About
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/success-stories" className="font-medium text-sm">
+                <Link href="/success-stories" className="font-medium text-xs">
                   Success Stories
                 </Link>
               </NavigationMenuItem>
@@ -90,18 +90,18 @@ const Header = () => {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/nutrition" className="font-medium text-sm">
+                <Link href="/nutrition" className="font-medium text-xs">
                   Nutrition
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/blog" className="font-medium text-sm">
+                <Link href="/blog" className="font-medium text-xs">
                   Blog
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link href="/get-started" className="font-medium text-sm">
-                  <Button size={'sm'} className="bg-gray-50 text-gray-800">
+                  <Button size={'none'} className="bg-gray-50 text-gray-800 text-xs">
                     Get Started
                   </Button>
                 </Link>
@@ -160,8 +160,8 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWit
             )}
             {...props}
           >
-            <div className="text-sm font-medium leading-none">{title}</div>
-            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
+            <div className="text-xs font-medium leading-none">{title}</div>
+            <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">{children}</p>
           </a>
         </NavigationMenuLink>
       </li>

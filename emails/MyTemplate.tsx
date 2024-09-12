@@ -15,11 +15,14 @@ import * as React from 'react'
 
 interface AWSVerifyEmailProps {
   verificationCode?: string
+  username?: string
 }
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : ''
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : 'http://localhost:3000'
 
-export default function MyTemplate({ verificationCode = '596853' }: AWSVerifyEmailProps) {
+export default function MyTemplate({ verificationCode = '596853', username }: AWSVerifyEmailProps) {
   return (
     <Html>
       <Head />
@@ -28,9 +31,10 @@ export default function MyTemplate({ verificationCode = '596853' }: AWSVerifyEma
         <Container style={container}>
           <Section style={coverSection}>
             <Section style={imageSection}>
-              <Img src={`${baseUrl}/static/aws-logo.png`} width="75" height="45" alt="AWS's Logo" />
+              <Img src={`${baseUrl}/deadlift.png`} width="75" height="45" alt="Deadlift" />
             </Section>
             <Section style={upperSection}>
+              <Heading style={h1}>Hello {username}</Heading>
               <Heading style={h1}>Verify your email address</Heading>
               <Text style={mainText}>
                 Thanks for starting the new AWS account creation process. We want to make sure

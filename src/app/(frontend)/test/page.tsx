@@ -1,28 +1,54 @@
-import { render } from '@react-email/render'
-import { client } from '../../../../postmark'
-import MyTemplate from 'emails/MyTemplate'
+'use client'
+import { useState } from 'react'
 
-export default async function TestPage() {
-  const emailHtml = await render(<MyTemplate />)
+export default function TestPage() {
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
+  const [username, setUsername] = useState('')
 
-  const options = {
-    From: 'daniel@madeleydesignstudio.org',
-    To: 'daniel@madeleydesignstudio.org',
-    Subject: 'hello world',
-    HtmlBody: emailHtml,
+  const sendEmail = async () => {
+    if (!username.trim()) {
+      setErrorMessage('Please enter a username')
+      return
+    }
+
+    setStatus('loading')
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username }),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setStatus('success')
+      } else {
+        throw new Error(data.error || 'Failed to send email')
+      }
+    } catch (error) {
+      console.error('Error in sendEmail function:', error)
+      setStatus('error')
+      setErrorMessage(error instanceof Error ? error.message : String(error))
+    }
   }
 
-  try {
-    const response = await client.sendEmail(options)
-    console.log('Email sent successfully:', response)
-    return <div>Email sent successfully!</div>
-  } catch (error) {
-    console.error('Error sending email:', error)
-    return (
-      <div>
-        <h1>Error sending email</h1>
-        <p>Error details: {error instanceof Error ? error.message : String(error)}</p>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Enter your username"
+      />
+      <button onClick={sendEmail} disabled={status === 'loading'}>
+        {status === 'loading' ? 'Sending...' : 'Send Email'}
+      </button>
+      {status === 'success' && <p>Email sent successfully!</p>}
+      {status === 'error' && <p>Error sending email: {errorMessage}</p>}
+    </div>
+  )
 }

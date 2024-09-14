@@ -51,32 +51,32 @@ const data = [
   {
     category: 'Strength Training',
     title: 'Grow your muscles.',
-    src: '/deadlift.png',
+    src: 'https://ik.imagekit.io/danielcmadeley/hjb-coaching/deadlift.webp?updatedAt=1726311585745',
     content: <DummyContent />,
   },
   {
     category: 'Cardiovascular Endurance',
     title: 'Enhance your productivity.',
-    src: '/running.png',
+    src: 'https://ik.imagekit.io/danielcmadeley/hjb-coaching/running.webp?updatedAt=1726311586265',
     content: <DummyContent />,
   },
   {
     category: 'Muscular Endurance',
     title: 'Photography just got better.',
-    src: '/endurance.png',
+    src: 'https://ik.imagekit.io/danielcmadeley/hjb-coaching/endurance.webp?updatedAt=1726311585684',
     content: <DummyContent />,
   },
   {
     category: 'Flexibility',
     title: 'Launching the new Apple Vision Pro.',
-    src: '/stretching.png',
+    src: 'https://ik.imagekit.io/danielcmadeley/hjb-coaching/stretching.webp?updatedAt=1726311585837',
     content: <DummyContent />,
   },
 
   {
     category: 'Nutrition',
     title: 'Maps for your iPhone 15 Pro Max.',
-    src: '/food.png',
+    src: 'https://ik.imagekit.io/danielcmadeley/hjb-coaching/food.webp?updatedAt=1726311585836',
     content: <DummyContent />,
   },
 ]

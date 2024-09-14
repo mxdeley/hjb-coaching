@@ -42,7 +42,7 @@ export function About() {
       </div>
       <div>
         <Image
-          src="/about-image.jpeg"
+          src="https://ik.imagekit.io/danielcmadeley/hjb-coaching/about-image.webp?updatedAt=1726311586190"
           alt="About"
           width={600}
           height={600}

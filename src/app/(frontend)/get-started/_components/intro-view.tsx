@@ -28,7 +28,10 @@ export default function IntroView({ onStart }: Props) {
       </div>
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/questionaire-2.jpg')" }}
+        style={{
+          backgroundImage:
+            "url('https://ik.imagekit.io/danielcmadeley/hjb-coaching/questionaire-2.webp?updatedAt=1726311586265')",
+        }}
       />
     </div>
   )

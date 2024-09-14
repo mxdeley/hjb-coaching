@@ -6,7 +6,12 @@ import Link from 'next/link'
 const Hero = () => {
   return (
     <div className="w-screen h-screen">
-      <Image src="/api/media/file/hjb-hero.webp" alt="hero" fill className="object-cover" />
+      <Image
+        src="https://ik.imagekit.io/danielcmadeley/hjb-coaching/hjb-hero.webp?updatedAt=1726310945249"
+        alt="hero"
+        fill
+        className="object-cover"
+      />
       <div className="absolute bottom-0 left-0 right-0 h-[400px] bg-gradient-to-t from-gray-800 to-transparent"></div>
       <div className="absolute top-1/4 left-[40%] text-white text-cente ">
         <h1 className="text-8xl font-bold">Overcome your insecurities</h1>{' '}

@@ -6,7 +6,8 @@ const nextConfig = {
     domains: [
       'assets.aceternity.com',
       'images.unsplash.com',
-      'api.microlink.io', // Microlink Image Preview
+      'api.microlink.io',
+      'ik.imagekit.io', // Microlink Image Preview
     ],
   },
   // Your Next.js config here

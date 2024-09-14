@@ -18,38 +18,26 @@ import { Button } from './ui/button'
 
 const components: { title: string; href: string; description: string }[] = [
   {
-    title: 'Alert Dialog',
-    href: '/docs/primitives/alert-dialog',
+    title: 'Strength Training',
+    href: '/programmes/strength-training',
     description:
       'A modal dialog that interrupts the user with important content and expects a response.',
   },
   {
-    title: 'Hover Card',
-    href: '/docs/primitives/hover-card',
+    title: 'Cardiovascular Endurance',
+    href: '/programmes/cardiovascular-endurance',
     description: 'For sighted users to preview content available behind a link.',
   },
   {
-    title: 'Progress',
-    href: '/docs/primitives/progress',
+    title: 'Muscular Endurance',
+    href: '/programmes/muscular-endurance',
     description:
       'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
   },
   {
-    title: 'Scroll-area',
-    href: '/docs/primitives/scroll-area',
+    title: 'Flexibility',
+    href: '/programmes/flexibility',
     description: 'Visually or semantically separates content.',
-  },
-  {
-    title: 'Tabs',
-    href: '/docs/primitives/tabs',
-    description:
-      'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
-  },
-  {
-    title: 'Tooltip',
-    href: '/docs/primitives/tooltip',
-    description:
-      'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
   },
 ]
 
@@ -61,7 +49,12 @@ const Header = () => {
       <header className="flex mx-auto items-center justify-between py-3 px-4 max-w-6xl">
         <div>
           <Link href="/">
-            <Image src="/logo.svg" alt="logo" width={80} height={10} />
+            <Image
+              src="https://ik.imagekit.io/danielcmadeley/hjb-coaching/logo.webp?updatedAt=1726312440129"
+              alt="logo"
+              width={80}
+              height={10}
+            />
           </Link>
         </div>
         <nav className="hidden md:block">

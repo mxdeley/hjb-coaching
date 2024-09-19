@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import BMICalculator from './_components/bmi-components'
 
 export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -265,6 +266,9 @@ export default function Dashboard() {
                 <p className="text-xs text-muted-foreground">+201 since last hour</p>
               </CardContent>
             </Card>
+          </div>
+          <div className="mt-6">
+            <BMICalculator />
           </div>
         </main>
       </div>

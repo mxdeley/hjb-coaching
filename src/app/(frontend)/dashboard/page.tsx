@@ -18,6 +18,7 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import BMICalculator from './_components/bmi-components'
+import { UserButton } from '@clerk/nextjs'
 
 export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -156,21 +157,7 @@ export default function Dashboard() {
                 <Bell className="h-6 w-6" />
               </Button>
               <div className="ml-3 relative">
-                <div>
-                  <Button
-                    variant="ghost"
-                    className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                    id="user-menu"
-                    aria-haspopup="true"
-                  >
-                    <span className="sr-only">Open user menu</span>
-                    <Avatar>
-                      <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User avatar" />
-                      <AvatarFallback>JD</AvatarFallback>
-                    </Avatar>
-                    <ChevronDown className="ml-1 h-4 w-4" />
-                  </Button>
-                </div>
+                <UserButton afterSignOutUrl="/" />
               </div>
             </div>
           </div>

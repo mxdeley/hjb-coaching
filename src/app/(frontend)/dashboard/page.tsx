@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { UserButton } from '@clerk/nextjs'
 import {
   Bell,
-  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Home,
@@ -13,12 +14,8 @@ import {
   Settings,
   Users,
 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { useCallback, useEffect, useState } from 'react'
 import BMICalculator from './_components/bmi-components'
-import { UserButton } from '@clerk/nextjs'
 import WorkoutTracker from './_components/workout-tracker'
 
 export default function Dashboard() {
